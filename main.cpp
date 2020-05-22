@@ -1,16 +1,16 @@
 #include <iostream>
 #include "Dict.h"
-#include <ctime>
+
+using namespace std;
 
 int main() {
+  Dict<int, int> dict;
 
-    Dict<double, int> dict;
-    uint64_t start_time =  clock();
-    for (int q = 0; q < 100000000; q++)
-        dict[rand()] = q;
-    uint64_t end_time =  clock();
-    uint64_t time = end_time-start_time;
-    std::cout << time << std::endl;
-    //double a = dict.getKey();
+    for (int q = 0; q < 10; q++)
+        dict[rand() % 100] = q;
+
+    dict.printKeysTree();
+    auto a = dict.getKey(6);
+
     return 0;
 }

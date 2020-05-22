@@ -1,6 +1,7 @@
 #ifndef LB3_LINCKEDLIST_H
 #define LB3_LINCKEDLIST_H
 
+#include <functional>
 #include "String.h"
 #include <stdexcept>
 
@@ -58,7 +59,7 @@ template<typename T>
 LinkedList<T>::Node::Node(const T &data, LinkedList::Node *pNext) {
     this->data = data;
     this->pNext = pNext;
-}
+}//
 
 template<typename T>
 typename LinkedList<T>::Node *LinkedList<T>::get_node(const size_t position) {
@@ -66,7 +67,7 @@ typename LinkedList<T>::Node *LinkedList<T>::get_node(const size_t position) {
     for (int counter = 0; counter < position and node->pNext != nullptr; counter++)
         node = node->pNext;
     return node;
-}
+}//
 
 template<typename T>
 T LinkedList<T>::delete_node(LinkedList::Node *node) {
@@ -74,35 +75,35 @@ T LinkedList<T>::delete_node(LinkedList::Node *node) {
     delete (node);
     _size--;
     return data;
-}
+}//
 
 template<typename T>
 LinkedList<T>::LinkedList() {
     _size = 0;
     head = nullptr;
-}
+}//
 
 template<typename T>
 LinkedList<T>::~LinkedList() {
     clear();
-}
+}//
 
 template<typename T>
 size_t LinkedList<T>::size() {
     return _size;
-}
+}//
 
 template<typename T>
 T &LinkedList<T>::at(const size_t position) {
     if (position >= _size)
         throw std::out_of_range(String("{} is more then {}").format(int(position)).format(int(_size)));
     return get_node(position)->data;
-}
+}//
 
 template<typename T>
 T &LinkedList<T>::operator[](size_t position) {
     return get_node(position)->data;
-}
+}//
 
 template<typename T>
 void LinkedList<T>::push_back(const T &data) {
@@ -111,13 +112,13 @@ void LinkedList<T>::push_back(const T &data) {
     else
         get_node(_size - 1)->pNext = new Node(data);
     _size++;
-}
+}//
 
 template<typename T>
 void LinkedList<T>::push_front(const T &data) {
     head = new Node(data, head);
     _size++;
-}
+}//
 
 template<typename T>
 void LinkedList<T>::insert(const T &data, const size_t position) {
@@ -131,7 +132,7 @@ void LinkedList<T>::insert(const T &data, const size_t position) {
         previousNode->pNext = newNode;
     }
     _size++;
-}
+}//
 
 template<typename T>
 T LinkedList<T>::pop_back() {
@@ -139,7 +140,7 @@ T LinkedList<T>::pop_back() {
     Node *node = previousNode->pNext;
     previousNode->pNext = nullptr;
     return delete_node(node);
-}
+}//
 
 template<typename T>
 T LinkedList<T>::pop_front() {
@@ -147,7 +148,7 @@ T LinkedList<T>::pop_front() {
     Node *nextNode = node->pNext;
     head = nextNode;
     return delete_node(node);
-}
+}//
 
 template<typename T>
 T LinkedList<T>::erase(const size_t position) {
@@ -160,14 +161,14 @@ T LinkedList<T>::erase(const size_t position) {
     Node *nextNode = node->pNext;
     previousNode->pNext = nextNode;
     return delete_node(node);
-}
+}//
 
 template<typename T>
 void LinkedList<T>::clear_all(Node *node) {
     if (node->pNext != nullptr)
         clear_all(node->pNext);
     delete (node);
-}
+}//
 
 template<typename T>
 void LinkedList<T>::clear() {
@@ -176,7 +177,7 @@ void LinkedList<T>::clear() {
         this->_size = 0;
         this->head = nullptr;
     }
-}
+}//
 
 template<typename T>
 String LinkedList<T>::toString() {
@@ -184,7 +185,7 @@ String LinkedList<T>::toString() {
     String string = "[";
     if (node != nullptr) {
         while (node->pNext != nullptr) {
-            string += std::to_string(node->data) + ", ";
+            string += std::to_string(node->data) + ",\t";
             node = node->pNext;
         }
         string += std::to_string(node->data);
